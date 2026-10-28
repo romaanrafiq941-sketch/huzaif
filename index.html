@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Gracefully handle Vite HMR websocket disconnection in iframe/proxy environments
+      window.addEventListener('error', function(e) {
+        if (e && (
+          e.message?.includes("Cannot read properties of undefined (reading 'send')") ||
+          e.message?.includes("WebSocket closed without opened") ||
+          e.error?.message?.includes("Cannot read properties of undefined (reading 'send')")
+        )) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          return true;
+        }
+      }, true);
+      window.addEventListener('unhandledrejection', function(e) {
+        if (e && (
+          e.reason?.message?.includes("Cannot read properties of undefined (reading 'send')") ||
+          e.reason?.message?.includes("WebSocket closed without opened")
+        )) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          return true;
+        }
+      }, true);
+    </script>
+    <title>Offline Study AI</title>
+    <meta name="description" content="Offline-first Progressive Web App for students. Ask any study doubt and get grounded, step-by-step answers without internet." />
+    <meta property="og:title" content="Offline Study AI" />
+    <meta property="og:description" content="Ask any study question and get answers using on-device AI and cached study packs with zero internet connection." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#6F4E37" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="StudyAI" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  </head>
+  <body class="bg-[#F8F7F5] dark:bg-[#151210] text-[#2D2118] dark:text-[#E5E4E2] antialiased selection:bg-[#6F4E37] selection:text-[#E6E0F0]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
